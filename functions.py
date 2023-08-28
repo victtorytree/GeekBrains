@@ -23,14 +23,14 @@ def searchPerson(surname):
     data.close()
 
 def deletePerson(val):
-    data = open('Dict.txt', 'r+', encoding="utf-8")
+    data = open('Dict.txt', 'r', encoding="utf-8")
     Lines = data.readlines()
-    data.seek(0)
+    data = open('Dict.txt', 'w', encoding="utf-8")
     for line in Lines:
         if val not in line.split():
             data.write(line)
-    data.truncate()
     data.close()
+    print("контакт удален")
 
 def changePerson(val, val2):
     data = open ('Dict.txt', 'r+', encoding="utf-8")
@@ -38,13 +38,13 @@ def changePerson(val, val2):
     existPerson = False
     for x in range(len(Lines)):
         if val in Lines[x].split():
-            Lines[x] = val2
+            Lines[x] = val2 +"\n"
             existPerson = True
-    if existPerson:
-        data.seek(0)
-        for line in Lines:
-            data.write(line)    
+    data = open('Dict.txt', 'w', encoding="utf-8")
+    for line in Lines:
+        data.write(line)    
+    if existPerson == False:
+        print("не удалось, контакт не найден")
     else:
-        print("не удалось, такого контакта нет")
-    data.truncate()  
+        print("успешно изменено")
     data.close()
